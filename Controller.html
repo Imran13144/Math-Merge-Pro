@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <script type="text/javascript" src="https://www.airconsole.com/api/api-1.7.0.js"></script>
+  <style>
+    body {
+      background: #0f1c24;
+      color: white;
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      user-select: none;
+    }
+    .header { color: #ffcc00; margin-bottom: 10px; }
+    
+    .btn-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding: 15px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    
+    .btn {
+      background: linear-gradient(to bottom, #ffdb4d, #b38f00);
+      border: 1px solid #ffe680;
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #000;
+      box-shadow: 0 4px 0px #665200;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Select Button Styling */
+    .btn-select {
+      background: linear-gradient(to bottom, #4CAF50, #2E7D32);
+      color: white;
+      border-color: #81C784;
+      box-shadow: 0 4px 0px #1B5E20;
+      grid-column: 2;
+    }
+
+    /* Quit Button Styling */
+    .btn-quit {
+      background: linear-gradient(to bottom, #f44336, #b71c1c);
+      color: white;
+      border-color: #ef9a9a;
+      box-shadow: 0 4px 0px #7f0000;
+      margin-top: 20px;
+      width: 120px;
+      align-self: center;
+      padding: 10px;
+    }
+
+    .btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 0px 0px transparent;
+    }
+
+    /* Positioning for 8-Way Controls */
+    .up-left { grid-column: 1; grid-row: 1; }
+    .up { grid-column: 2; grid-row: 1; }
+    .up-right { grid-column: 3; grid-row: 1; }
+    .left { grid-column: 1; grid-row: 2; }
+    .select { grid-column: 2; grid-row: 2; }
+    .right { grid-column: 3; grid-row: 2; }
+    .down-left { grid-column: 1; grid-row: 3; }
+    .down { grid-column: 2; grid-row: 3; }
+    .down-right { grid-column: 3; grid-row: 3; }
+
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h2>MATH MERGE</h2>
+    <p>Advanced Controller</p>
+  </div>
+
+  <div class="btn-container">
+    <button class="btn up-left" onclick="sendAction('move', 'up-left')">↖</button>
+    <button class="btn up" onclick="sendAction('move', 'up')">↑</button>
+    <button class="btn up-right" onclick="sendAction('move', 'up-right')">↗</button>
+
+    <button class="btn left" onclick="sendAction('move', 'left')">←</button>
+    <button class="btn btn-select select" onclick="sendAction('select', 'toggle')">SELECT</button>
+    <button class="btn right" onclick="sendAction('move', 'right')">→</button>
+
+    <button class="btn down-left" onclick="sendAction('move', 'down-left')">↙</button>
+    <button class="btn down" onclick="sendAction('move', 'down')">↓</button>
+    <button class="btn down-right" onclick="sendAction('move', 'down-right')">↘</button>
+  </div>
+
+  <button class="btn btn-quit" onclick="sendAction('system', 'quit')">QUIT</button>
+
+  <script>
+    const airconsole = new AirConsole();
+
+    function sendAction(type, val) {
+      airconsole.message(AirConsole.SCREEN, {
+        "type": type,
+        "value": val
+      });
+      
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(40);
+      }
+    }
+  </script>
+</body>
+</html>
